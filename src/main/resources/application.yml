@@ -1,0 +1,37 @@
+server:
+  port: 80
+  servlet:
+    context-path: /
+  address: 192.168.1.11
+#spring-hibernate for mysql
+spring:
+#  profiles:
+#    active: heroku
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    #    database-platform: com.mysql.cj.jdbc.Driver
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  #connection MySQL
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
+#    url: jdbc:mysql://localhost:3308/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
+      #    url: jdbc:mysql://b5941b2d075b5d:cebfac38@us-cdbr-east-05.cleardb.net/heroku_9097815b6cfd14d?reconnect=true?enabledTLSProtocols=TLSv1.2
+    username: root
+    password: nhanbn98
+#    password: 123456
+#    password: tuanbmhd2001
+      #    username: b5941b2d075b5d
+
+#    password: cebfac38
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#google:
+#  clientId: 569599946060-9s09k2ujflc4ar0p5fsml7t6d78i3a0v.apps.googleusercontent.com
+#  secretPsw: kjsfdhkjhfdslhfdslhfdsuiuuiywe
+
+
+
