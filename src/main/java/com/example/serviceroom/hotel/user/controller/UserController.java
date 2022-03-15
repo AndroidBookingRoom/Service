@@ -3,6 +3,7 @@ package com.example.serviceroom.hotel.user.controller;
 import com.example.serviceroom.common.Constants;
 import com.example.serviceroom.common.Response;
 import com.example.serviceroom.config.jwt.JwtUtils;
+import com.example.serviceroom.hotel.user.bean.UserBean;
 import com.example.serviceroom.hotel.user.bo.UserBO;
 import com.example.serviceroom.hotel.user.form.UserForm;
 import com.example.serviceroom.hotel.user.service.UserService;
@@ -49,17 +50,21 @@ public class UserController {
 
     @PostMapping("/authenticate")
     public @ResponseBody
-    Response authentication(@RequestBody UserForm userForm){
+    Response authentication(@RequestBody UserForm userForm) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userForm.getUsername(), userForm.getPassword())
             );
         } catch (AuthenticationException e) {
-            return Response.warning(Constants.RESPONSE_CODE.WARNING,Constants.MESSAGE.LOGIN_FAIL);
+            return Response.warning(Constants.RESPONSE_CODE.WARNING, Constants.MESSAGE.LOGIN_FAIL);
         }
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(userForm.getUsername());
+        HashMap<String, Object> res = new HashMap<>();
+        UserBean bean = userService.findUserByUsername(userForm.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
-        return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(jwt);
+        res.put(Constants.KEY_USER, bean);
+        res.put(Constants.KEY_TOKEN, jwt);
+        return Response.success(Constants.RESPONSE_CODE.SUCCESS).withData(res);
     }
 }

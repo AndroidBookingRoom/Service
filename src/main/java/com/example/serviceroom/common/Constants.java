@@ -142,4 +142,7 @@ public class Constants {
             return code;
         }
     }
+
+    public static final String KEY_USER = "USER";
+    public static final String KEY_TOKEN = "TOKEN";
 }

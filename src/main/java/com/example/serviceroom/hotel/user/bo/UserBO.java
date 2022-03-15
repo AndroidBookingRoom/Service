@@ -31,6 +31,7 @@ public class UserBO {
     @Column(name = "address")
     private String address;
 
+    @Temporal(TemporalType.DATE)
     @Column(name = "date_of_birth")
     private Date dob;
 

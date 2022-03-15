@@ -3,6 +3,8 @@ package com.example.serviceroom.hotel.user.bean;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
 @Getter
@@ -14,7 +16,8 @@ public class UserBean {
     private String gmail;
     private String password;
     private String address;
-    private Date dateOfBirth;
+    @Temporal(TemporalType.DATE)
+    private Date dob;
     private String gender;
     private Date createdDate;
     private Date updatedDate;
