@@ -44,6 +44,7 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
 <!--            <version>${mysql.version}</version>-->
+            <scope>runtime</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.cloudinary/cloudinary-http44 -->
