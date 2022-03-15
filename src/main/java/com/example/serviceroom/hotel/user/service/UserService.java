@@ -1,5 +1,6 @@
 package com.example.serviceroom.hotel.user.service;
 
+import com.example.serviceroom.common.Constants;
 import com.example.serviceroom.hotel.user.bo.UserBO;
 import com.example.serviceroom.hotel.user.form.UserForm;
 import com.example.serviceroom.hotel.user.reporisoty.UserRepository;
@@ -9,8 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.ModelMap;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
@@ -26,6 +27,7 @@ public class UserService {
 
     public boolean createdUser(UserForm userForm){
         try{
+            SimpleDateFormat format = new SimpleDateFormat(Constants.COMMON.DATE_TIME_FORMAT);
             ModelMapper modelMap = new ModelMapper();
             UserBO userBO = modelMap.map(userForm,UserBO.class);
             if (Objects.nonNull(userBO.getGuid())){
@@ -34,6 +36,7 @@ public class UserService {
                 userBO.setGuid(UUID.randomUUID().toString());
                 userBO.setCreatedDate(new Date());
             }
+            userBO.setDob(format.parse(userForm.getTxtDateOfBirth()));
             userBO.setPassword(passwordEncoder.encode(userBO.getPassword()));
             userRepository.save(userBO);
             return true;

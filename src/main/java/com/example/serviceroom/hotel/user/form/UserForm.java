@@ -14,8 +14,9 @@ public class UserForm {
     private String gmail;
     private String password;
     private String address;
-    private Date dateOfBirth;
+    private Date dob;
     private String gender;
     private Date createdDate;
     private Date updatedDate;
+    private String txtDateOfBirth;
 }
