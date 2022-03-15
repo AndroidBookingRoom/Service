@@ -6,6 +6,8 @@ import com.example.serviceroom.config.jwt.JwtUtils;
 import com.example.serviceroom.hotel.user.bo.UserBO;
 import com.example.serviceroom.hotel.user.form.UserForm;
 import com.example.serviceroom.hotel.user.service.UserService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/user")
 public class UserController {
+    private static final Logger log = LogManager.getLogger(UserController.class);
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -47,6 +50,7 @@ public class UserController {
     @PostMapping("/authenticate")
     public @ResponseBody
     Response authentication(UserForm userForm){
+        log.info(userForm.toString());
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userForm.getUsername(), userForm.getPassword())
