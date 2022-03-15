@@ -22,14 +22,14 @@ spring:
     #    url: jdbc:mysql://localhost:3306/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
     #    url: jdbc:mysql://localhost:3308/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
 
-    url: jdbc:mysql://b5941b2d075b5d:cebfac38@us-cdbr-east-05.cleardb.net/heroku_9097815b6cfd14d?reconnect=true?enabledTLSProtocols=TLSv1.2
+    url: jdbc:mysql://b46d9eccbb7a7c:010e8960@us-cdbr-east-05.cleardb.net/heroku_da98832cb22e5c7?
     #    username: root
     #    password: nhanbn98
     ##    password: 123456
     ##    password: tuanbmhd2001
-    username: b5941b2d075b5d
+    username: b46d9eccbb7a7c
 
-    password: cebfac38
+    password: 010e8960
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #
 #google:
