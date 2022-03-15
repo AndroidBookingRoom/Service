@@ -50,7 +50,8 @@ public class UserController {
     @PostMapping("/authenticate")
     public @ResponseBody
     Response authentication(UserForm userForm){
-        log.info(userForm.toString());
+        log.info("Username:",userForm.getUsername());
+        log.info("Password:",userForm.getPassword());
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(userForm.getUsername(), userForm.getPassword())
