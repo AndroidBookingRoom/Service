@@ -38,8 +38,8 @@ public class UserController {
     @Qualifier("userDetailsService")
     private UserDetailsService userDetailsService;
 
-    @PostMapping("/created")
-    public Response createdUser(@RequestBody UserForm userForm) {
+    @PostMapping("/saveOrUpdate")
+    public Response saveOrUpdate(@RequestBody UserForm userForm) {
         boolean flag = userService.createdUser(userForm);
         if (flag) {
             return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS);

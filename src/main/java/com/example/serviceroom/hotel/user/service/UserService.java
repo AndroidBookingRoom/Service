@@ -11,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -22,12 +24,16 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     public boolean createdUser(UserForm userForm){
         try{
             ModelMapper modelMap = new ModelMapper();
             UserBO userBO = modelMap.map(userForm,UserBO.class);
-            userBO.setGuid(UUID.randomUUID().toString());
+            if (Objects.nonNull(userBO.getGuid())){
+                userBO.setUpdatedDate(new Date());
+            }else{
+                userBO.setGuid(UUID.randomUUID().toString());
+                userBO.setCreatedDate(new Date());
+            }
             userBO.setPassword(passwordEncoder.encode(userBO.getPassword()));
             userRepository.save(userBO);
             return true;
