@@ -2,11 +2,10 @@ package com.example.serviceroom.hotel.kindOfRoom.controller;
 
 import com.example.serviceroom.common.Constants;
 import com.example.serviceroom.common.Response;
-import com.example.serviceroom.hotel.kindOfRoom.KindOfRoom;
+import com.example.serviceroom.hotel.kindOfRoom.bean.KODBean;
 import com.example.serviceroom.hotel.kindOfRoom.form.KindOfRoomForm;
 import com.example.serviceroom.hotel.kindOfRoom.service.KindOfRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +16,12 @@ public class KindOfRoomController {
     @Autowired
     private KindOfRoomService kindOfRoomService;
     @GetMapping("/getAllKOD")
-    public ResponseEntity<List<KindOfRoom>> getAllKindOfRoom(){
-        return  ResponseEntity.ok(kindOfRoomService.getAll());
+    public Response getDataKOD(KindOfRoomForm form) {
+        List<KODBean> lstHotel = kindOfRoomService.getListKOD(form);
+        if (lstHotel.isEmpty()){
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS,Constants.MESSAGE.ISEMPTY);
+        }
+        return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS).withData(lstHotel);
     }
     @PostMapping("/createKOD")
     public Response createKOD(@RequestBody KindOfRoomForm kindOfRoomForm) {

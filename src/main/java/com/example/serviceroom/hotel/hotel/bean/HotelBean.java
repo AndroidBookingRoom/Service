@@ -1,14 +1,13 @@
-package com.example.serviceroom.hotel.hotel.hotelForm;
+package com.example.serviceroom.hotel.hotel.bean;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
 @Getter
 @Setter
-public class HotelForm {
+public class HotelBean {
     private int id;
     private float lat;
     private float lon;
@@ -17,6 +16,4 @@ public class HotelForm {
     private String name;
     private String address;
     private Date createdDate;
-    private MultipartFile multipartFile;
-    private String urlImg;
 }

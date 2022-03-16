@@ -37,7 +37,7 @@ public class UserService {
                 userBO.setGuid(UUID.randomUUID().toString());
                 userBO.setCreatedDate(new Date());
             }
-            userBO.setDob(format.parse(userForm.getTxtDateOfBirth()));
+//            userBO.setDob(format.parse(userForm.getTxtDateOfBirth()));
             userBO.setPassword(passwordEncoder.encode(userBO.getPassword()));
             userRepository.save(userBO);
             return true;

@@ -2,11 +2,10 @@ package com.example.serviceroom.hotel.room.controller;
 
 import com.example.serviceroom.common.Constants;
 import com.example.serviceroom.common.Response;
-import com.example.serviceroom.hotel.room.RoomBO;
+import com.example.serviceroom.hotel.room.RoomBean.RoomBean;
 import com.example.serviceroom.hotel.room.form.RoomForm;
 import com.example.serviceroom.hotel.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +17,12 @@ public class RoomController {
     private RoomService roomService;
 
     @GetMapping("/get-all-room")
-    public ResponseEntity<List<RoomBO>> getAllRoom() {
-        return ResponseEntity.ok(roomService.getAll());
+    public Response getDataRoom(RoomForm form) {
+        List<RoomBean> lstRoom = roomService.getListRoom(form);
+        if (lstRoom.isEmpty()){
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS,Constants.MESSAGE.ISEMPTY);
+        }
+        return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS).withData(lstRoom);
     }
     @PostMapping("/create-room")
     public Response createRoom(@RequestBody RoomForm roomForm) {
@@ -37,4 +40,6 @@ public class RoomController {
         }
         return new Response(Constants.RESPONSE_TYPE.ERROR, Constants.RESPONSE_CODE.ERROR);
     }
+
+//    public
 }

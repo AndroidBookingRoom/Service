@@ -17,7 +17,10 @@ public class HotelBO {
 
     @Column(name = "guid")
     private String guid;
-
+    @Column(name = "lat")
+    private float lat;
+    @Column(name = "lon")
+    private float lon;
     @Column(name = "guid_area")
     private String guidArea;
 
@@ -29,4 +32,5 @@ public class HotelBO {
 
     @Column(name = "created_date")
     private Date createdDate;
+
 }
