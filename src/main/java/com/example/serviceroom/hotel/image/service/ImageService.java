@@ -1,13 +1,10 @@
 package com.example.serviceroom.hotel.image.service;
 
-import com.example.serviceroom.hotel.hotel.service.HotelService;
 import com.example.serviceroom.hotel.image.ImageBO;
 import com.example.serviceroom.hotel.image.repository.ImageRepository;
 import com.example.serviceroom.service.CloudinaryService;
-import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
