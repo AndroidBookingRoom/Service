@@ -4,7 +4,6 @@ import com.example.serviceroom.hotel.hotel.service.HotelService;
 import com.example.serviceroom.hotel.image.ImageBO;
 import com.example.serviceroom.hotel.image.repository.ImageRepository;
 import com.example.serviceroom.service.CloudinaryService;
-import javafx.scene.image.Image;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.LoggerFactory;
