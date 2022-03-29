@@ -9,14 +9,14 @@ import java.util.Date;
 @Getter
 @Setter
 public class HotelForm {
-    private int id;
-    private float lat;
-    private float lon;
+    private Integer id;
+    private Float lat;
+    private Float lon;
     private String guid;
     private String guidArea;
     private String name;
     private String address;
     private Date createdDate;
-    private MultipartFile multipartFile;
+    private MultipartFile[] multipartFile;
     private String urlImg;
 }

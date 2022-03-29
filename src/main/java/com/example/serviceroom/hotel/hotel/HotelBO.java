@@ -1,5 +1,6 @@
 package com.example.serviceroom.hotel.hotel;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +30,7 @@ public class HotelBO {
 
     @Column(name = "address")
     private String address;
-
+    @JsonFormat(pattern = "dd-MM-yyyy")
     @Column(name = "created_date")
     private Date createdDate;
 

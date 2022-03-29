@@ -26,7 +26,6 @@ public class CloudinaryService {
 //        valuesMap.put("folder","demo");
         cloudinary = new Cloudinary(valuesMap);
     }
-
     public Map upload(MultipartFile multipartFile){
 
         File file = convert(multipartFile);

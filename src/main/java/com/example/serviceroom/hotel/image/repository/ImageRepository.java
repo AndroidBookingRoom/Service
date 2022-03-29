@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface ImageRepository extends JpaRepository<ImageBO, Integer> {
     void deleteByGuid(String guid);
     Optional<ImageBO> findByGuidHotel(String guid);
+
 }
