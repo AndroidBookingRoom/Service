@@ -19,17 +19,17 @@ spring:
 
   #connection MySQL
   datasource:
-#    url: jdbc:mysql://localhost:3306/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
 #        url: jdbc:mysql://localhost:3308/db_bookingroom?useUnicode=yes&characterEncoding=UTF-8
 
-    url: jdbc:mysql://b46d9eccbb7a7c:010e8960@us-cdbr-east-05.cleardb.net/heroku_da98832cb22e5c7?
-#    username: root
-#    password: tuanbmhd2001
+#    url: jdbc:mysql://b46d9eccbb7a7c:010e8960@us-cdbr-east-05.cleardb.net/heroku_da98832cb22e5c7?
+    username: root
+    password: tuanbmhd2001
 
       #    password: nhanbn98
       #    password: 123456
-    username: b46d9eccbb7a7c
-    password: 010e8960
+#    username: b46d9eccbb7a7c
+#    password: 010e8960
 #    driver-class-name: com.mysql.cj.jdbc.Driver
 #
 #google:

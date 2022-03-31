@@ -53,6 +53,30 @@ public class ImageService {
         }
         return true;
     }
+    public boolean uploadImageForRoom(String guid, MultipartFile multipartFile) {
+        ImageBO image;
+        try {
+            BufferedImage bi = ImageIO.read(multipartFile.getInputStream());
+            if (Objects.isNull(bi)) {
+                return false;
+            }
+            Map result = cloudinaryService.upload(multipartFile);
+            image = imageRepository.findByGuidHotel(guid).orElse(null);
+            if (Objects.isNull(image)) {
+                image = new ImageBO();
+                image.setGuidRoom(guid);
+            } else {
+                delete(image.getGuid());
+            }
+            image.setGuid(UUID.randomUUID().toString());
+            image.setUrlImage(String.valueOf(result.get("url")));
+            imageRepository.save(image);
+        } catch (IOException e) {
+            log.error(e.getMessage());
+            return false;
+        }
+        return true;
+    }
     public void delete(String imageGuid) {
         cloudinaryService.delete(imageGuid);
         imageRepository.deleteByGuid(imageGuid);

@@ -36,7 +36,7 @@ public class HotelService {
     @Autowired
     private ImageRepository imageRepository;
 
-    public List<HotelBean> getListHotel() {
+    public List<HotelBean> getListHotel(HotelForm form) {
         StringBuilder strQuery = new StringBuilder("SELECT h.id as id, " +
                 "h.lat as lat," +
                 "h.lon as lon," +
@@ -52,9 +52,9 @@ public class HotelService {
 //        if (Objects.nonNull(form.getGuidArea())) {
 //            strQuery.append("   AND h.guidArea =  ").append(form.getGuidArea());
 //        }
-//        if (Objects.nonNull(form.getName())) {
-//            strQuery.append("   AND h.name =  ").append(form.getName());
-//        }
+        if (Objects.nonNull(form.getName())) {
+            strQuery.append("   AND h.name =  " ).append(form.getName());
+        }
         strQuery.append("   ORDER BY h.created_date ");
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(strQuery.toString())

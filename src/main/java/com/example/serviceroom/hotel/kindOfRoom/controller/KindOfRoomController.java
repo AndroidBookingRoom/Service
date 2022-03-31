@@ -8,6 +8,7 @@ import com.example.serviceroom.hotel.kindOfRoom.service.KindOfRoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -15,27 +16,30 @@ import java.util.List;
 public class KindOfRoomController {
     @Autowired
     private KindOfRoomService kindOfRoomService;
+
     @GetMapping("/getAllKOD")
     public Response getDataKOD(KindOfRoomForm form) {
         List<KODBean> lstHotel = kindOfRoomService.getListKOD(form);
-        if (lstHotel.isEmpty()){
-            return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS,Constants.MESSAGE.ISEMPTY);
+        if (lstHotel.isEmpty()) {
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS, Constants.MESSAGE.ISEMPTY);
         }
-        return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS).withData(lstHotel);
+        return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS).withData(lstHotel);
     }
+
     @PostMapping("/createKOD")
-    public Response createKOD(@RequestBody KindOfRoomForm kindOfRoomForm) {
-        boolean flag = kindOfRoomService.createKindOfRoom(kindOfRoomForm);
-        if (flag) {
-            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS);
+    public Response createKOD(KindOfRoomForm kindOfRoomForm) {
+        HashMap<Boolean, KODBean> map = kindOfRoomService.createKindOfRoom(kindOfRoomForm);
+        if (map.containsKey(true)) {
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS).withData(map.get(true));
         }
         return new Response(Constants.RESPONSE_TYPE.ERROR, Constants.RESPONSE_CODE.ERROR);
     }
+
     @DeleteMapping("/deleteKOD")
-    public Response deleteKOD(@RequestBody KindOfRoomForm kindOfRoomForm){
-        boolean flag = kindOfRoomService.deleteKOD(kindOfRoomForm.getGuid());
-        if (flag) {
-            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS);
+    public Response deleteKOD(@RequestParam String id) {
+        HashMap<Boolean, KODBean> map = kindOfRoomService.deleteKOD(id);
+        if (map.containsKey(true)) {
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS).withData(map.get(true));
         }
         return new Response(Constants.RESPONSE_TYPE.ERROR, Constants.RESPONSE_CODE.ERROR);
     }

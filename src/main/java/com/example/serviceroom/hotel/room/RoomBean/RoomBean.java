@@ -14,4 +14,6 @@ public class RoomBean {
     private String guidHotel;
     private Double price;
     private Date created_date;
+    private String urlImg;
+
 }
