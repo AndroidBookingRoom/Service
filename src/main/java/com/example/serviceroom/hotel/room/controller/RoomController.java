@@ -8,6 +8,7 @@ import com.example.serviceroom.hotel.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -25,18 +26,18 @@ public class RoomController {
         return new Response(Constants.RESPONSE_TYPE.SUCCESS,Constants.RESPONSE_CODE.SUCCESS).withData(lstRoom);
     }
     @PostMapping("/create-room")
-    public Response createRoom(@RequestBody RoomForm roomForm) {
-        boolean flag = roomService.createRoom(roomForm);
-        if (flag) {
-            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS);
+    public Response createRoom( RoomForm roomForm) {
+        HashMap<Boolean,RoomBean> map = roomService.createRoom(roomForm);
+        if (map.containsKey(true)) {
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS).withData(map.get(true));
         }
         return new Response(Constants.RESPONSE_TYPE.ERROR, Constants.RESPONSE_CODE.ERROR);
     }
     @DeleteMapping("/delete-room")
-    public Response deleteRoom(@RequestBody RoomForm roomForm) {
-        boolean flag = roomService.deleteRoom(roomForm.getGuid());
-        if (flag) {
-            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS);
+    public Response deleteRoom(@RequestParam String id) {
+        HashMap<Boolean,RoomBean> map = roomService.deleteRoom(id);
+        if (map.containsKey(true)) {
+            return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS).withData(map.get(true));
         }
         return new Response(Constants.RESPONSE_TYPE.ERROR, Constants.RESPONSE_CODE.ERROR);
     }

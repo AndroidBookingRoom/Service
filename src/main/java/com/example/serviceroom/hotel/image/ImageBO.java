@@ -19,6 +19,8 @@ public class ImageBO {
 
     @Column(name = "guid_room")
     private String guidRoom;
+    @Column(name = "guid_kind_of_room")
+    private String guidKindOfRoom;
 
     @Column(name = "guid_hotel")
     private String guidHotel;

@@ -28,5 +28,5 @@ public class RoomBO {
     private Double price;
 
     @Column(name = "created_date")
-    private Date created_date;
+    private Date createdDate;
 }

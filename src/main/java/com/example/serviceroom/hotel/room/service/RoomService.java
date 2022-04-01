@@ -1,5 +1,10 @@
 package com.example.serviceroom.hotel.room.service;
 
+import com.example.serviceroom.common.CommonUtil;
+import com.example.serviceroom.hotel.hotel.bean.HotelBean;
+import com.example.serviceroom.hotel.image.ImageBO;
+import com.example.serviceroom.hotel.image.repository.ImageRepository;
+import com.example.serviceroom.hotel.image.service.ImageService;
 import com.example.serviceroom.hotel.room.RoomBO;
 import com.example.serviceroom.hotel.room.RoomBean.RoomBean;
 import com.example.serviceroom.hotel.room.form.RoomForm;
@@ -14,10 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class RoomService {
@@ -26,11 +28,26 @@ public class RoomService {
     private RoomRepository roomRepository;
     @Autowired
     private EntityManager entityManager;
+    @Autowired
+    private ImageService imageService;
+    @Autowired
+    private ImageRepository imageRepository;
 
     public List<RoomBean> getListRoom(RoomForm form) {
 
-        StringBuilder strQuery = new StringBuilder("SELECT * ");
+        StringBuilder strQuery = new StringBuilder("SELECT r.id as id ," +
+                " r.created_date as  createdDate," +
+                " r.guid as guid ," +
+                " r.guid_hotel as guidHotel," +
+                " r.guid_kind_of_room as guidKindOfRoom ," +
+                " r.price as price ," +
+                " i.url_image as urlImg ," +
+                "h.name as hotelName ," +
+                "k.name as kindOfRoomName  ");
         strQuery.append("   FROM room r");
+        strQuery.append("   JOIN hotel h ON r.guid_hotel = h.guid");
+        strQuery.append("   JOIN kind_of_room k ON k.guid = r.guid_kind_of_room");
+        strQuery.append("   JOIN image i ON r.guid = i.guid_room");
         strQuery.append("   WHERE 1=1 ");
 
         if (Objects.nonNull(form.getGuid())) {
@@ -38,36 +55,58 @@ public class RoomService {
         }
         strQuery.append("   ORDER BY r.created_date ");
         Session session = entityManager.unwrap(Session.class);
-        Query query = session.createQuery(strQuery.toString())
+        Query query = session.createSQLQuery(strQuery.toString())
                 .setResultTransformer(Transformers.aliasToBean(RoomBean.class));
-
         List lst = query.getResultList();
         return lst != null ? lst : new ArrayList<>();
     }
 
-    public boolean createRoom(RoomForm roomForm) {
+    public HashMap<Boolean, RoomBean> createRoom(RoomForm roomForm) {
+        HashMap<Boolean, RoomBean> map = new HashMap<>();
         try {
             ModelMapper modelMap = new ModelMapper();
             RoomBO roomBO = modelMap.map(roomForm, RoomBO.class);
+            roomBO.setCreatedDate(new Date());
             roomBO.setGuid(UUID.randomUUID().toString());
+            if (!CommonUtil.isEmpty(roomForm.getMultipartFile())) {
+                for (int i = 0; i < roomForm.getMultipartFile().length; i++) {
+                    boolean uploadImage = imageService.uploadImageForRoom(roomBO.getGuid(), roomForm.getMultipartFile()[i]);
+                    if (!uploadImage) {
+                        map.put(false, new RoomBean());
+                        return map;
+                    }
+                }
+            }
             roomRepository.save(roomBO);
-            return true;
+            ImageBO imageBO = imageRepository.findByGuidRoom(roomBO.getGuid()).orElse(null);
+            RoomBean roomBean = modelMap.map(roomBO, RoomBean.class);
+            if (Objects.nonNull(imageBO)) {
+                roomBean.setUrlImg(imageBO.getUrlImage());
+            }
+            map.put(true, roomBean);
+            return map;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        return false;
+        map.put(false, new RoomBean());
+        return map;
     }
 
-    public boolean deleteRoom(String guid) {
+    public HashMap<Boolean, RoomBean> deleteRoom(String guid) {
+        HashMap<Boolean, RoomBean> map = new HashMap<>();
         try {
+            ModelMapper modelMap = new ModelMapper();
             RoomBO roomBO = roomRepository.findByGuid(guid).
                     orElseThrow(() -> new Exception("Room not found - " + guid));
+            RoomBean roomBean = modelMap.map(roomBO, RoomBean.class);
             roomRepository.delete(roomBO);
-            return true;
+            map.put(true, roomBean);
+            return map;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
-        return false;
+        map.put(false, new RoomBean());
+        return map;
     }
 
 

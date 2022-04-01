@@ -17,5 +17,4 @@ public class RoomForm {
     private Date created_date;
     private MultipartFile[] multipartFile;
     private String urlImg;
-
 }

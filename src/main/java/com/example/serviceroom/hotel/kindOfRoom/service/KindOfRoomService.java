@@ -67,7 +67,7 @@ public class KindOfRoomService {
             kindOfRoom.setCreatedDate(new Date());
             if (!CommonUtil.isEmpty(kindOfRoomForm.getMultipartFile())) {
                 for (int i = 0; i < kindOfRoomForm.getMultipartFile().length; i++) {
-                    boolean uploadImage = imageService.uploadImageForRoom(kindOfRoom.getGuid(), kindOfRoomForm.getMultipartFile()[i]);
+                    boolean uploadImage = imageService.uploadImageForKOD(kindOfRoom.getGuid(), kindOfRoomForm.getMultipartFile()[i]);
                     if (!uploadImage) {
                         map.put(false, new KODBean());
                         return map;
@@ -75,7 +75,7 @@ public class KindOfRoomService {
                 }
             }
             kindOfRoomRepository.save(kindOfRoom);
-            ImageBO imageBO = imageRepository.findByGuidRoom(kindOfRoom.getGuid()).orElse(null);
+            ImageBO imageBO = imageRepository.findByGuidKindOfRoom(kindOfRoom.getGuid()).orElse(null);
             KODBean kodBean = modelMap.map(kindOfRoom, KODBean.class);
             if (Objects.nonNull(imageBO)) {
                 kodBean.setUrlImg(imageBO.getUrlImage());
