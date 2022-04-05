@@ -43,7 +43,7 @@ public class KindOfRoomService {
                 " k.name as name , " +
                 "i.url_image as urlImg ");
         strQuery.append("   FROM kind_of_room k");
-        strQuery.append("   JOIN image i ON  k.guid = i.guid_room ");
+        strQuery.append("   JOIN image i ON  k.guid = i.guid_kind_of_room ");
         strQuery.append("   WHERE 1=1 ");
 
 //        if (Objects.nonNull(form.getName())){

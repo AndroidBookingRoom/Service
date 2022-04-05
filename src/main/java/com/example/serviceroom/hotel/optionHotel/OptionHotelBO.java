@@ -14,6 +14,8 @@ public class OptionHotelBO {
     @Column(name = "id")
     private int id;
 
+    @Column(name = "guid")
+    private String guid;
     @Column(name = "guid_hotel")
     private String guidHotel;
 

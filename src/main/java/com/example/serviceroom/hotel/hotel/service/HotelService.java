@@ -52,14 +52,13 @@ public class HotelService {
 //        if (Objects.nonNull(form.getGuidArea())) {
 //            strQuery.append("   AND h.guidArea =  ").append(form.getGuidArea());
 //        }
-        if (Objects.nonNull(form.getName())) {
-            strQuery.append("   AND h.name =  " ).append(form.getName());
-        }
+//        if (Objects.nonNull(form.getName())) {
+//            strQuery.append("   AND h.name =  ' ").append(form.getName()).append("'");
+//        }
         strQuery.append("   ORDER BY h.created_date ");
         Session session = entityManager.unwrap(Session.class);
         Query query = session.createSQLQuery(strQuery.toString())
                 .setResultTransformer(Transformers.aliasToBean(HotelBean.class));
-
         List lst = query.getResultList();
         return lst != null ? lst : new ArrayList<>();
     }

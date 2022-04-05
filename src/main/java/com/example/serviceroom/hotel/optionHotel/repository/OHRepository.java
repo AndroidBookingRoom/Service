@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface OHRepository extends JpaRepository<OptionHotelBO,Integer> {
     Optional<OptionHotelBO> findByGuidHotel(String guid);
+    Optional<OptionHotelBO> findByGuid(String guid);
 }

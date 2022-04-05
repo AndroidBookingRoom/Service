@@ -19,7 +19,7 @@ public class HotelController {
     private HotelService hotelService;
 
     @GetMapping("/getListHotel")
-    public Response getDataHotel(HotelForm form) {
+    public Response getDataHotel( HotelForm form) {
         List<HotelBean> lstHotel = hotelService.getListHotel(form);
         if (lstHotel.isEmpty()) {
             return new Response(Constants.RESPONSE_TYPE.SUCCESS, Constants.RESPONSE_CODE.SUCCESS, Constants.MESSAGE.ISEMPTY);
