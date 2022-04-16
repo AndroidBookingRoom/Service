@@ -1,4 +1,4 @@
-package com.example.serviceroom.hotel.area;
+package com.example.serviceroom.hotel.area.bo;
 
 import lombok.Getter;
 import lombok.Setter;

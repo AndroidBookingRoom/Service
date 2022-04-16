@@ -9,10 +9,11 @@ import java.util.Date;
 @Setter
 public class HotelBean {
     private Integer id;
-    private Float lat;
-    private Float lon;
+    private String lat;
+    private String lon;
     private String guid;
     private String guidArea;
+    private String nameArea;
     private String name;
     private String address;
     private Date createdDate;

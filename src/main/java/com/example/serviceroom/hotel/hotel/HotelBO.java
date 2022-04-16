@@ -19,9 +19,9 @@ public class HotelBO {
     @Column(name = "guid")
     private String guid;
     @Column(name = "lat")
-    private float lat;
+    private String lat;
     @Column(name = "lon")
-    private float lon;
+    private String lon;
     @Column(name = "guid_area")
     private String guidArea;
 

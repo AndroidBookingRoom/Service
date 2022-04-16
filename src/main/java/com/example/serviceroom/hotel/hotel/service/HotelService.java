@@ -40,14 +40,16 @@ public class HotelService {
         StringBuilder strQuery = new StringBuilder("SELECT h.id as id, " +
                 "h.lat as lat," +
                 "h.lon as lon," +
-                "h.guid_area as guidArea" +
-                ",h.name as name," +
+                "h.guid_area as guidArea," +
+                "a.name as nameArea, " +
+                "h.name as name," +
                 "h.guid as guid," +
                 "h.address as address " +
                 ", h.created_date as createdDate" +
                 ", i.url_image as urlImg ");
         strQuery.append("   FROM hotel h");
         strQuery.append("   JOIN image i ON i.guid_hotel = h.guid");
+        strQuery.append("   JOIN area a ON a.guid = h.guid_area");
         strQuery.append("   WHERE 1=1 ");
 //        if (Objects.nonNull(form.getGuidArea())) {
 //            strQuery.append("   AND h.guidArea =  ").append(form.getGuidArea());

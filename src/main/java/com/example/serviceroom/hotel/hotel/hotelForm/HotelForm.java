@@ -10,8 +10,8 @@ import java.util.Date;
 @Setter
 public class HotelForm {
     private Integer id;
-    private Float lat;
-    private Float lon;
+    private String lat;
+    private String lon;
     private String guid;
     private String guidArea;
     private String name;
